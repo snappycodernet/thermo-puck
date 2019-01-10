@@ -43,6 +43,25 @@ a:hover {
   padding: 12px;
 }
 
+.resetZoomButton {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 30px;
+  position: absolute;
+  top: 7px;
+  left: 40%;
+  height: 10%;
+  width: 13%;
+  cursor: pointer;
+}
+
+.resetZoomButton:hover {
+  background-color: #fff;
+  border: 1px solid black;
+  color: black;
+}
+
 .card-body-theme {
   background-color: #494F56;
 }
@@ -68,9 +87,14 @@ a:hover {
   transition: 1s;
   z-index: 999;
   filter: grayscale(75%);
+  cursor: pointer;
 }
 
 .pausePlayButtons:hover {
   opacity: 1;
   transition: 0.35s;
+}
+
+#header-right-text {
+  float: right;
 }

@@ -33,7 +33,8 @@
   <div class="row-fluid cards">
     <div class="card shadow card-theme card-bottom">
       <div class="card-header card-header-theme">
-        <h5>SENSOR TEMPERATURE READINGS</h5>
+        <h5>SENSOR TEMPERATURE READINGS <span id="header-right-text">MAC: {{chartData[0].MAC_Address}} - MODEL:
+            {{chartData[0].Model}}</span></h5>
       </div>
       <div class="card-body">
         <div *ngIf="chartData.length > 0">

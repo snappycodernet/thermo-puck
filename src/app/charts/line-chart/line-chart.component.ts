@@ -9,11 +9,17 @@ import * as ChartZoomPlugin from "chartjs-plugin-zoom";
 })
 export class LineChartComponent implements OnInit {
   @Input() lineChartData: any[];
-  public lineChartArrayData: any[] = [];
   public sensorMAC: string = "";
   public sensorModel: string = "";
   public chart: Chart = null;
   public paused: boolean = false;
+  public sensorReadDates: any[] = [];
+  public internalTempSensor: any[] = [];
+  public sensor1Data: any[] = [];
+  public sensor2Data: any[] = [];
+  public startCounter: number = 0;
+  public interval: any;
+  public zoomed: boolean = false;
 
   constructor() {}
 
@@ -23,56 +29,56 @@ export class LineChartComponent implements OnInit {
 
   handlePauseClick() {
     this.paused = !this.paused;
+
+    if (this.paused) clearInterval(this.interval);
+    else this.setData();
   }
 
   setData() {
-    let sensorReadDates: any[] = [];
-    let internalTempSensor: any[] = [];
-    let sensor1Data: any[] = [];
-    let sensor2Data: any[] = [];
     this.sensorMAC = this.lineChartData[0].MAC_Address;
     this.sensorModel = this.lineChartData[0].Model;
-    let startCounter = 0;
-    let endCounter = 15;
 
-    setInterval(() => {
-      if (startCounter >= 9) {
-        sensorReadDates.shift();
-        internalTempSensor.shift();
-        sensor1Data.shift();
-        sensor2Data.shift();
-      }
-
+    this.interval = setInterval(() => {
       let dateString: string = this.formatDate(new Date());
 
       if (
-        this.lineChartData[startCounter].InternalTemp < 500 &&
-        this.lineChartData[startCounter].ExternalTemp1 < 500 &&
-        this.lineChartData[startCounter].ExternalTemp2 < 500
+        this.lineChartData[this.startCounter].InternalTemp < 500 &&
+        this.lineChartData[this.startCounter].ExternalTemp1 < 500 &&
+        this.lineChartData[this.startCounter].ExternalTemp2 < 500
       ) {
-        internalTempSensor.push(this.lineChartData[startCounter].InternalTemp);
-        sensor1Data.push(this.lineChartData[startCounter].ExternalTemp1);
-        sensor2Data.push(this.lineChartData[startCounter].ExternalTemp2);
-        sensorReadDates.push(dateString);
+        this.internalTempSensor.push(
+          this.lineChartData[this.startCounter].InternalTemp
+        );
+        this.sensor1Data.push(
+          this.lineChartData[this.startCounter].ExternalTemp1
+        );
+        this.sensor2Data.push(
+          this.lineChartData[this.startCounter].ExternalTemp2
+        );
+        this.sensorReadDates.push(dateString);
       }
 
-      startCounter++;
-      endCounter++;
+      this.startCounter++;
+
+      if (this.startCounter >= 11) {
+        this.sensorReadDates.shift();
+        this.internalTempSensor.shift();
+        this.sensor1Data.shift();
+        this.sensor2Data.shift();
+      }
+
       this.updateChart(
-        sensorReadDates,
-        internalTempSensor,
-        sensor1Data,
-        sensor2Data
+        this.sensorReadDates,
+        this.internalTempSensor,
+        this.sensor1Data,
+        this.sensor2Data
       );
-    }, 3000);
+    }, 5000);
   }
 
   updateChart(sensorReadDates, internalTempSensor, sensor1Data, sensor2Data) {
     const canvas: any = document.querySelector("#line-chart");
     const ctx = canvas.getContext("2d");
-    //ctx.canvas.width = document.querySelector(".chart").clientWidth - 5;
-    //ctx.canvas.height = document.querySelector(".chart").clientHeight - 5;
-    console.log(document.querySelector(".chart").clientWidth);
 
     if (!this.chart) {
       this.chart = new Chart(ctx, {
@@ -134,9 +140,22 @@ export class LineChartComponent implements OnInit {
           scales: {
             yAxes: [
               {
-                ticks: {},
+                ticks: {
+                  padding: 20,
+                },
               },
             ],
+            xAxes: [
+              {
+                ticks: {
+                  max: 10,
+                  suggestedMax: 10,
+                },
+              },
+            ],
+          },
+          animation: {
+            duration: 200,
           },
           responsive: true,
           hover: {
@@ -147,8 +166,6 @@ export class LineChartComponent implements OnInit {
           },
           onClick: function(e) {
             let element = this.chart.getElementAtEvent(e);
-
-            console.log(element);
 
             if (element.length > 0) {
               let fill = this.config.data.datasets[element[0]._datasetIndex]
@@ -192,7 +209,9 @@ export class LineChartComponent implements OnInit {
             mode: "y",
             // Function called once zooming is completed
             // Useful for dynamic data loading
-            onZoom: function() {},
+            onZoom: () => {
+              this.zoomed = true;
+            },
           },
           plugins: [ChartZoomPlugin],
         },
@@ -206,8 +225,12 @@ export class LineChartComponent implements OnInit {
       this.chart.data.datasets[2].data = sensor2Data;
 
       this.chart.update();
-      //this.chart.resetZoom();
     }
+  }
+
+  resetZoom() {
+    this.chart.resetZoom();
+    this.zoomed = false;
   }
 
   formatDate(date: Date) {
