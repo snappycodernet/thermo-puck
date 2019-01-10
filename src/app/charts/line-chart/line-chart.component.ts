@@ -13,11 +13,16 @@ export class LineChartComponent implements OnInit {
   public sensorMAC: string = "";
   public sensorModel: string = "";
   public chart: Chart = null;
+  public paused: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
     this.setData();
+  }
+
+  handlePauseClick() {
+    this.paused = !this.paused;
   }
 
   setData() {
@@ -85,9 +90,9 @@ export class LineChartComponent implements OnInit {
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
-              pointHoverRadius: 10,
+              pointHoverRadius: 8,
               pointRadius: 5,
-              pointHitRadius: 15,
+              pointHitRadius: 10,
               label: "Internal Temp Sensor",
               data: internalTempSensor,
             },
@@ -101,9 +106,9 @@ export class LineChartComponent implements OnInit {
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
-              pointHoverRadius: 10,
+              pointHoverRadius: 8,
               pointRadius: 5,
-              pointHitRadius: 15,
+              pointHitRadius: 10,
               label: "Sensor 1",
               data: sensor1Data,
             },
@@ -117,9 +122,9 @@ export class LineChartComponent implements OnInit {
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
-              pointHoverRadius: 10,
+              pointHoverRadius: 8,
               pointRadius: 5,
-              pointHitRadius: 15,
+              pointHitRadius: 10,
               label: "Sensor 2",
               data: sensor2Data,
             },
