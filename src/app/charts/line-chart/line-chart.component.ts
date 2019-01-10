@@ -25,36 +25,30 @@ export class LineChartComponent implements OnInit {
     let internalTempSensor: any[] = [];
     let sensor1Data: any[] = [];
     let sensor2Data: any[] = [];
-    let batterySensorData: any[] = [];
-    let rangeSensorData: any[] = [];
     this.sensorMAC = this.lineChartData[0].MAC_Address;
     this.sensorModel = this.lineChartData[0].Model;
     let startCounter = 0;
     let endCounter = 15;
 
     setInterval(() => {
-      sensorReadDates = [];
-      internalTempSensor = [];
-      sensor1Data = [];
-      sensor2Data = [];
-      batterySensorData = [];
-      rangeSensorData = [];
+      if (startCounter >= 9) {
+        sensorReadDates.shift();
+        internalTempSensor.shift();
+        sensor1Data.shift();
+        sensor2Data.shift();
+      }
 
-      for (let i = startCounter; i < endCounter; i++) {
-        let dateString: string = this.formatDate(new Date());
+      let dateString: string = this.formatDate(new Date());
 
-        if (
-          this.lineChartData[i].InternalTemp < 500 &&
-          this.lineChartData[i].ExternalTemp1 < 500 &&
-          this.lineChartData[i].ExternalTemp2 < 500
-        ) {
-          internalTempSensor.push(this.lineChartData[i].InternalTemp);
-          sensor1Data.push(this.lineChartData[i].ExternalTemp1);
-          sensor2Data.push(this.lineChartData[i].ExternalTemp2);
-          batterySensorData.push(this.lineChartData[i].BatteryPercentage);
-          rangeSensorData.push(this.lineChartData[i].RangeSensorReading);
-          sensorReadDates.push(dateString);
-        }
+      if (
+        this.lineChartData[startCounter].InternalTemp < 500 &&
+        this.lineChartData[startCounter].ExternalTemp1 < 500 &&
+        this.lineChartData[startCounter].ExternalTemp2 < 500
+      ) {
+        internalTempSensor.push(this.lineChartData[startCounter].InternalTemp);
+        sensor1Data.push(this.lineChartData[startCounter].ExternalTemp1);
+        sensor2Data.push(this.lineChartData[startCounter].ExternalTemp2);
+        sensorReadDates.push(dateString);
       }
 
       startCounter++;
@@ -92,6 +86,8 @@ export class LineChartComponent implements OnInit {
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 10,
+              pointRadius: 5,
+              pointHitRadius: 15,
               label: "Internal Temp Sensor",
               data: internalTempSensor,
             },
@@ -106,6 +102,8 @@ export class LineChartComponent implements OnInit {
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 10,
+              pointRadius: 5,
+              pointHitRadius: 15,
               label: "Sensor 1",
               data: sensor1Data,
             },
@@ -120,6 +118,8 @@ export class LineChartComponent implements OnInit {
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 10,
+              pointRadius: 5,
+              pointHitRadius: 15,
               label: "Sensor 2",
               data: sensor2Data,
             },
