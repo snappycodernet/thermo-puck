@@ -15,15 +15,15 @@ body {
 }
 
 a {
-  color: #44a4cd;
+  color: rgb(245, 208, 181);
 }
 
 a:hover {
-  color: #44a8cf;
+  color: rgb(250, 146, 71);
 }
 
 .shadow {
-  box-shadow: 0 8px 12px rgba(0,0,0,0.2), 0 5px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);
 }
 
 .section-container {
@@ -36,8 +36,8 @@ a:hover {
   border-radius: 2px;
 }
 
-.card-heading-theme {
-  color: #eee;
+.card-header-theme {
+  color: rgb(238, 238, 238);
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   padding: 12px;
@@ -54,4 +54,8 @@ a:hover {
 
 .section-container {
   padding: 30px;
+}
+
+.centered {
+  text-align: center;
 }

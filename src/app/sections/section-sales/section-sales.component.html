@@ -3,25 +3,28 @@
     <div class="card-deck">
       <div class="card mb-3 shadow card-theme">
         <div class="card-header card-header-theme">
-          <h5>Daily Orders</h5>
+          <h5>READING DISTRIBUTION</h5>
         </div>
         <div class="card-body">
+          <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
           <app-bar-chart></app-bar-chart>
         </div>
       </div>
       <div class="card mb-3 shadow card-theme">
         <div class="card-header card-header-theme">
-          <h5>Orders By Customer</h5>
+          <h5>RANGE SENSOR</h5>
         </div>
         <div class="card-body">
+          <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
           <app-pie-chart></app-pie-chart>
         </div>
       </div>
       <div class="card mb-3 shadow card-theme">
         <div class="card-header card-header-theme">
-          <h5>Orders By State</h5>
+          <h5>BATTERY LIFE</h5>
         </div>
         <div class="card-body">
+          <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
           <app-pie-chart></app-pie-chart>
         </div>
       </div>
@@ -30,10 +33,13 @@
   <div class="row-fluid cards">
     <div class="card shadow card-theme card-bottom">
       <div class="card-header card-header-theme">
-        <h5>Monthly Sales By Product</h5>
+        <h5>SENSOR TEMPERATURE READINGS</h5>
       </div>
       <div class="card-body">
-        <app-line-chart></app-line-chart>
+        <div *ngIf="chartData.length > 0">
+          <app-line-chart [lineChartData]="chartData">
+          </app-line-chart>
+        </div>
       </div>
     </div>
   </div>

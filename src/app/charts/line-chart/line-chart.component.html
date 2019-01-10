@@ -1,11 +1,5 @@
-<div class="chart">
-  <canvas baseChart
-    style="width: 100%; height: 100%;"
-    [datasets]="lineChartData"
-    [colors]="lineChartColors"
-    [labels]="lineChartLabels"
-    [options]="lineChartOptions"
-    [legend]="lineChartLegend"
-    [chartType]="lineChartType">
-  </canvas>
+<div *ngIf="lineChartData.length > 0" class="chart">
+  <h1 class="centered" *ngIf="!chart">LOADING CHART</h1>
+  <div class="loader centered" *ngIf="!chart"></div>
+  <canvas id="line-chart" style="width: 100%; height: 100%;"></canvas>
 </div>
