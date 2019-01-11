@@ -15,6 +15,7 @@ import { BarChartComponent } from "./charts/bar-chart/bar-chart.component";
 import { LineChartComponent } from "./charts/line-chart/line-chart.component";
 import { PieChartComponent } from "./charts/pie-chart/pie-chart.component";
 import { HttpClientModule } from "@angular/common/http";
+import { BatteryLevelComponent } from "./charts/battery-level/battery-level.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from "@angular/common/http";
     BarChartComponent,
     LineChartComponent,
     PieChartComponent,
+    BatteryLevelComponent,
   ],
   imports: [
     BrowserModule,

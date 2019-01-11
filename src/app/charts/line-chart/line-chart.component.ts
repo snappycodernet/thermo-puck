@@ -52,6 +52,13 @@ export class LineChartComponent implements OnInit {
       this.lineChartData[this.startCounter].ExternalTemp1 < 500 &&
       this.lineChartData[this.startCounter].ExternalTemp2 < 500
     ) {
+      if (this.startCounter >= 10) {
+        this.sensorReadDates.shift();
+        this.internalTempSensor.shift();
+        this.sensor1Data.shift();
+        this.sensor2Data.shift();
+      }
+
       this.internalTempSensor.push(
         this.lineChartData[this.startCounter].InternalTemp
       );
@@ -65,13 +72,6 @@ export class LineChartComponent implements OnInit {
     }
 
     this.startCounter++;
-
-    if (this.startCounter >= 11) {
-      this.sensorReadDates.shift();
-      this.internalTempSensor.shift();
-      this.sensor1Data.shift();
-      this.sensor2Data.shift();
-    }
 
     this.updateChart(
       this.sensorReadDates,
@@ -108,10 +108,12 @@ export class LineChartComponent implements OnInit {
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 8,
-              pointRadius: 5,
-              pointHitRadius: 10,
+              pointRadius: 3,
+              pointHitRadius: 8,
               label: "Internal Temp Sensor",
               data: internalTempSensor,
+              fill: false,
+              lineTension: 0.0,
             },
             {
               backgroundColor: "rgba(255,209,102,0.2)",
@@ -124,10 +126,12 @@ export class LineChartComponent implements OnInit {
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 8,
-              pointRadius: 5,
-              pointHitRadius: 10,
+              pointRadius: 3,
+              pointHitRadius: 8,
               label: "Sensor 1",
               data: sensor1Data,
+              fill: false,
+              lineTension: 0.0,
             },
             {
               backgroundColor: "rgba(15,78,133,0.2)",
@@ -140,10 +144,12 @@ export class LineChartComponent implements OnInit {
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 8,
-              pointRadius: 5,
-              pointHitRadius: 10,
+              pointRadius: 3,
+              pointHitRadius: 8,
               label: "Sensor 2",
               data: sensor2Data,
+              fill: false,
+              lineTension: 0.0,
             },
           ],
         },
@@ -152,7 +158,8 @@ export class LineChartComponent implements OnInit {
             yAxes: [
               {
                 ticks: {
-                  padding: 20,
+                  min: 50,
+                  max: 100,
                 },
               },
             ],
@@ -166,7 +173,7 @@ export class LineChartComponent implements OnInit {
             ],
           },
           animation: {
-            duration: 200,
+            duration: 0,
           },
           responsive: true,
           hover: {
@@ -218,7 +225,9 @@ export class LineChartComponent implements OnInit {
             mode: "y",
             // Function called once panning is completed
             // Useful for dynamic data loading
-            onPan: function() {},
+            onPan: () => {
+              this.zoomed = true;
+            },
           },
           zoom: {
             // Boolean to enable zooming

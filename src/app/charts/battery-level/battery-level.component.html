@@ -1,0 +1,18 @@
+<div class='battery' (mouseenter)="handleMouseHover()" (mouseleave)="handleMouseLeave()">
+  <!--
+   "data-power" can be set to any value between 0 and 100,
+   Additional bars can be added too. But you will need
+   to resize the battery div.  
+  -->
+  <div class='battery-bar' data-power='10'></div>
+  <div class='battery-bar' data-power='20'></div>
+  <div class='battery-bar' data-power='30'></div>
+  <div class='battery-bar' data-power='40'></div>
+  <div class='battery-bar' data-power='50'></div>
+  <div class='battery-bar' data-power='60'></div>
+  <div class='battery-bar' data-power='70'></div>
+  <div class='battery-bar' data-power='80'></div>
+  <div class='battery-bar' data-power='90'></div>
+  <div class='battery-bar' data-power='100'></div>
+  <div [hidden]="!isHovered" class="battery-level-text">75%</div>
+</div>
