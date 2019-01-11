@@ -20,6 +20,7 @@ export class LineChartComponent implements OnInit {
   public startCounter: number = 0;
   public interval: any;
   public zoomed: boolean = false;
+  public intervalDuration: number = 0;
 
   constructor() {}
 
@@ -39,41 +40,51 @@ export class LineChartComponent implements OnInit {
     this.sensorModel = this.lineChartData[0].Model;
 
     this.interval = setInterval(() => {
-      let dateString: string = this.formatDate(new Date());
+      this.startGraph();
+    }, this.intervalDuration);
+  }
 
-      if (
-        this.lineChartData[this.startCounter].InternalTemp < 500 &&
-        this.lineChartData[this.startCounter].ExternalTemp1 < 500 &&
-        this.lineChartData[this.startCounter].ExternalTemp2 < 500
-      ) {
-        this.internalTempSensor.push(
-          this.lineChartData[this.startCounter].InternalTemp
-        );
-        this.sensor1Data.push(
-          this.lineChartData[this.startCounter].ExternalTemp1
-        );
-        this.sensor2Data.push(
-          this.lineChartData[this.startCounter].ExternalTemp2
-        );
-        this.sensorReadDates.push(dateString);
-      }
+  startGraph() {
+    let dateString: string = this.formatDate(new Date());
 
-      this.startCounter++;
-
-      if (this.startCounter >= 11) {
-        this.sensorReadDates.shift();
-        this.internalTempSensor.shift();
-        this.sensor1Data.shift();
-        this.sensor2Data.shift();
-      }
-
-      this.updateChart(
-        this.sensorReadDates,
-        this.internalTempSensor,
-        this.sensor1Data,
-        this.sensor2Data
+    if (
+      this.lineChartData[this.startCounter].InternalTemp < 500 &&
+      this.lineChartData[this.startCounter].ExternalTemp1 < 500 &&
+      this.lineChartData[this.startCounter].ExternalTemp2 < 500
+    ) {
+      this.internalTempSensor.push(
+        this.lineChartData[this.startCounter].InternalTemp
       );
-    }, 5000);
+      this.sensor1Data.push(
+        this.lineChartData[this.startCounter].ExternalTemp1
+      );
+      this.sensor2Data.push(
+        this.lineChartData[this.startCounter].ExternalTemp2
+      );
+      this.sensorReadDates.push(dateString);
+    }
+
+    this.startCounter++;
+
+    if (this.startCounter >= 11) {
+      this.sensorReadDates.shift();
+      this.internalTempSensor.shift();
+      this.sensor1Data.shift();
+      this.sensor2Data.shift();
+    }
+
+    this.updateChart(
+      this.sensorReadDates,
+      this.internalTempSensor,
+      this.sensor1Data,
+      this.sensor2Data
+    );
+
+    if (this.startCounter > 4 && this.intervalDuration === 0) {
+      clearInterval(this.interval);
+      this.intervalDuration = 5000;
+      this.setData();
+    }
   }
 
   updateChart(sensorReadDates, internalTempSensor, sensor1Data, sensor2Data) {

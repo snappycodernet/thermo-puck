@@ -52,7 +52,7 @@ a:hover {
   top: 7px;
   left: 40%;
   height: 10%;
-  width: 13%;
+  width: 11%;
   cursor: pointer;
 }
 
@@ -86,7 +86,7 @@ a:hover {
   opacity: 0;
   transition: 1s;
   z-index: 999;
-  filter: grayscale(75%);
+  filter: grayscale(100%);
   cursor: pointer;
 }
 
