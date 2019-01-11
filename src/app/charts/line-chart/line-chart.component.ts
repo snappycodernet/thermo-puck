@@ -173,7 +173,17 @@ export class LineChartComponent implements OnInit {
             intersect: true,
           },
           onHover: function(e) {
-            return;
+            var rect = canvas.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+
+            this.clear();
+            this.draw();
+            ctx.beginPath();
+            ctx.moveTo(x, ctx.canvas.height);
+            ctx.lineTo(x, 0);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "rgba(170,170,170,0.2)";
+            ctx.stroke();
           },
           onClick: function(e) {
             let element = this.chart.getElementAtEvent(e);
