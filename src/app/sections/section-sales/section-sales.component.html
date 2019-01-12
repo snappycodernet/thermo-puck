@@ -25,7 +25,7 @@
         </div>
         <div class="card-body">
           <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
-          <app-battery-level></app-battery-level>
+          <app-battery-level [batteryLevelData]="chartData"></app-battery-level>
         </div>
       </div>
     </div>
