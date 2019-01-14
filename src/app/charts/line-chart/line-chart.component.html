@@ -1,4 +1,4 @@
-<div *ngIf="lineChartData.length > 0" class="chart">
+<div *ngIf="lineChartData.length > 0">
   <input type="button" class="resetZoomButton" value="RESET ZOOM" (click)="resetZoom()" *ngIf="zoomed">
   <h1 class="centered" *ngIf="!chart">LOADING CHART</h1>
   <div class="loader centered" *ngIf="!chart"></div>

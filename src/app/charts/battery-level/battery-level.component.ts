@@ -37,7 +37,6 @@ export class BatteryLevelComponent implements OnInit {
 
   handleMouseHover() {
     this.isHovered = true;
-    console.log("hovered!");
   }
 
   handleMouseLeave() {
@@ -46,8 +45,6 @@ export class BatteryLevelComponent implements OnInit {
 
   updateBatteryIndicators() {
     const indicators = document.querySelectorAll(".battery-bar");
-
-    console.log(this.batteryLevel);
 
     for (let i = 0; i < indicators.length; i++) {
       if (

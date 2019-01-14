@@ -1,12 +1,12 @@
 <div class="section-container">
-  <div class="row-fluid cards">
-    <div class="card mb-3 shadow card-theme card-bottom">
-      <div class="card-header card-header-theme">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="chart-header">
         <h5>SENSOR TEMPERATURE READINGS <span *ngIf="chartData.length > 0" id="header-right-text">MAC:
             {{chartData[0].MAC_Address}} - MODEL:
             {{chartData[0].Model}}</span></h5>
       </div>
-      <div class="card-body">
+      <div class="chart-body">
         <div *ngIf="chartData.length > 0">
           <app-line-chart [lineChartData]="chartData">
           </app-line-chart>
@@ -14,34 +14,34 @@
       </div>
     </div>
   </div>
-  <div class="row-fluid cards">
-    <div class="card-deck">
-      <div class="card mb-3 shadow card-theme">
-        <div class="card-header card-header-theme">
-          <h5>SENSOR TEMP READING DISTRIBUTION</h5>
-        </div>
-        <div class="card-body">
-          <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
-          <app-bar-chart [barChartData]="chartData"></app-bar-chart>
-        </div>
+</div>
+<div class="section-container">
+  <div class="row">
+    <div class="col-lg-4 col-sm-12">
+      <div class="chart-header">
+        <h5>SENSOR TEMP READING DISTRIBUTION</h5>
       </div>
-      <div class="card mb-3 shadow card-theme">
-        <div class="card-header card-header-theme">
-          <h5>RANGE SENSOR</h5>
-        </div>
-        <div class="card-body">
-          <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
-          <app-pie-chart [pieChartData]="chartData"></app-pie-chart>
-        </div>
+      <div class="chart-body">
+        <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
+        <app-bar-chart [barChartData]="chartData"></app-bar-chart>
       </div>
-      <div class="card mb-3 shadow card-theme">
-        <div class="card-header card-header-theme">
-          <h5>BATTERY LIFE</h5>
-        </div>
-        <div class="card-body">
-          <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
-          <app-battery-level [batteryLevelData]="chartData"></app-battery-level>
-        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+      <div class="chart-header">
+        <h5>RANGE SENSOR</h5>
+      </div>
+      <div class="chart-body">
+        <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
+        <app-pie-chart [pieChartData]="chartData"></app-pie-chart>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-12">
+      <div class="chart-header">
+        <h5>BATTERY LIFE</h5>
+      </div>
+      <div class="chart-body">
+        <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
+        <app-battery-level [batteryLevelData]="chartData"></app-battery-level>
       </div>
     </div>
   </div>

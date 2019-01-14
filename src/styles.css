@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
 html {
@@ -22,25 +22,29 @@ a:hover {
   color: rgb(250, 146, 71);
 }
 
-.shadow {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);
-}
-
 .section-container {
   padding: 30px;
+  margin-bottom: 30px;
 }
 
-.card-theme {
+.chart-body {
   background-color: #191F26;
   border: none;
   border-radius: 2px;
+  box-shadow: 0 8px 12px rgba(2, 1, 1, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin: auto;
 }
 
-.card-header-theme {
+.chart-header {
   color: rgb(238, 238, 238);
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   padding: 12px;
+  box-shadow: 0 8px 12px rgba(2, 1, 1, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(2, 1, 1, 0.2);
 }
 
 .resetZoomButton {
@@ -60,15 +64,6 @@ a:hover {
   background-color: #fff;
   border: 1px solid black;
   color: black;
-}
-
-.card-body-theme {
-  background-color: #494F56;
-}
-
-.cards {
-  display: flex;
-  flex-direction: column;
 }
 
 .centered {

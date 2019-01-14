@@ -9,3 +9,9 @@
   animation: spin 2s linear infinite;
   margin: 15% 38% 0;
 }
+
+.chart {
+  position: relative;
+  height: 50%;
+  width: 100%;
+}
