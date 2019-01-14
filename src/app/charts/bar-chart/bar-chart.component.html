@@ -1,9 +1,5 @@
-<div class="chart">
-  <canvas baseChart
-    [datasets]="barChartData"
-    [labels]="barChartLabels"
-    [options]="barChartOptions"
-    [legend]="barChartLegend"
-    [chartType]="barChartType">
-  </canvas>
+<div *ngIf="barChartData.length > 0" class="chart">
+  <h1 class="centered" *ngIf="!chart">LOADING CHART</h1>
+  <div class="loader centered" *ngIf="!chart"></div>
+  <canvas id="bar-chart"></canvas>
 </div>
