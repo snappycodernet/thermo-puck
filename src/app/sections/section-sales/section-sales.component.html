@@ -31,7 +31,7 @@
         </div>
         <div class="card-body">
           <h1 class="centered" *ngIf="chartData.length === 0">LOADING CHART....</h1>
-          <app-pie-chart></app-pie-chart>
+          <app-pie-chart [pieChartData]="chartData"></app-pie-chart>
         </div>
       </div>
       <div class="card mb-3 shadow card-theme">
