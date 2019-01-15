@@ -14,4 +14,8 @@ export class SensorDataFetcherService {
   getData() {
     return this.http.get("http://localhost:59564/api/values");
   }
+
+  getComPortData() {
+    return this.http.get("http://localhost:59564/api/values/1");
+  }
 }

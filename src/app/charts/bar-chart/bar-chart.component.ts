@@ -1,5 +1,5 @@
 import { Chart } from "chart.js";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, Input } from "@angular/core";
 
 /*
 const SAMPLE_BARCHART_DATA: any[] = [
@@ -16,10 +16,10 @@ const SAMPLE_BARCHART_LABELS: string[] = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W
   templateUrl: "./bar-chart.component.html",
   styleUrls: ["./bar-chart.component.css"],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit, OnChanges {
   constructor() {}
 
-  @Input() public barChartData: any[];
+  @Input() public barChartData: any | any[];
   public barChartLabels: string[] = [];
   public interval: any;
   public intervalDuration: number = 5000;
@@ -37,24 +37,38 @@ export class BarChartComponent implements OnInit {
     this.setData();
   }
 
-  setData() {
-    this.interval = setInterval(() => {
+  ngOnChanges() {
+    if (typeof this.barChartData !== typeof Array) {
       this.startGraph();
-    }, this.intervalDuration);
+    }
+  }
+
+  setData() {
+    if (typeof this.barChartData === typeof Array) {
+      this.interval = setInterval(() => {
+        this.startGraph();
+      }, this.intervalDuration);
+    }
   }
 
   startGraph() {
-    this.internalTempSensor.push(
-      this.barChartData[this.startCounter].InternalTemp
-    );
-    this.sensor1Data.push(this.barChartData[this.startCounter].ExternalTemp1);
-    this.sensor2Data.push(this.barChartData[this.startCounter].ExternalTemp2);
+    if (typeof this.barChartData === typeof Array) {
+      this.internalTempSensor.push(
+        this.barChartData[this.startCounter].InternalTemp
+      );
+      this.sensor1Data.push(this.barChartData[this.startCounter].ExternalTemp1);
+      this.sensor2Data.push(this.barChartData[this.startCounter].ExternalTemp2);
+      this.startCounter++;
+    } else {
+      this.internalTempSensor.push(this.barChartData.InternalTemp);
+      this.sensor1Data.push(this.barChartData.ExternalTemp1);
+      this.sensor2Data.push(this.barChartData.ExternalTemp2);
+    }
 
     this.avgInternalTempSensor = this.calculateAvgTemp(this.internalTempSensor);
     this.avgSensor1 = this.calculateAvgTemp(this.sensor1Data);
     this.avgSensor2 = this.calculateAvgTemp(this.sensor2Data);
 
-    this.startCounter++;
     this.updateChart();
   }
 

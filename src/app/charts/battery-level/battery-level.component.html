@@ -1,18 +1,17 @@
-<div class='battery' (mouseenter)="handleMouseHover()" (mouseleave)="handleMouseLeave()">
-  <!--
-   "data-power" can be set to any value between 0 and 100,
-   Additional bars can be added too. But you will need
-   to resize the battery div.  
-  -->
-  <div class='battery-bar' data-power='10'></div>
-  <div class='battery-bar' data-power='20'></div>
-  <div class='battery-bar' data-power='30'></div>
-  <div class='battery-bar' data-power='40'></div>
-  <div class='battery-bar' data-power='50'></div>
-  <div class='battery-bar' data-power='60'></div>
-  <div class='battery-bar' data-power='70'></div>
-  <div class='battery-bar' data-power='80'></div>
-  <div class='battery-bar' data-power='90'></div>
-  <div class='battery-bar' data-power='100'></div>
-  <div [hidden]="!isHovered" class="battery-level-text">{{batteryLevel}}%</div>
+<div *ngIf="batteryLevel > 0" class="container">
+  <div class="battery-tip"></div>
+  <div class="indicators" (mouseenter)="handleMouseHover()" (mouseleave)="handleMouseLeave()">
+    <div *ngIf="isHovered" class="indicator-percentage">{{batteryLevel}}%</div>
+    <div class="indicator" level="100"></div>
+    <div class="indicator" level="90"></div>
+    <div class="indicator" level="80"></div>
+    <div class="indicator" level="70"></div>
+    <div class="indicator" level="60"></div>
+    <div class="indicator" level="50"></div>
+    <div class="indicator" level="40"></div>
+    <div class="indicator" level="30"></div>
+    <div class="indicator" level="20"></div>
+    <div class="indicator" level="10"></div>
+    <div class="indicator" level="0"></div>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, Input } from "@angular/core";
 import { Chart, ChartData, Point } from "chart.js";
 import * as ChartZoomPlugin from "chartjs-plugin-zoom";
 
@@ -7,8 +7,8 @@ import * as ChartZoomPlugin from "chartjs-plugin-zoom";
   templateUrl: "./line-chart.component.html",
   styleUrls: ["./line-chart.component.css"],
 })
-export class LineChartComponent implements OnInit {
-  @Input() lineChartData: any[];
+export class LineChartComponent implements OnInit, OnChanges {
+  @Input() lineChartData: any | any[];
   public sensorMAC: string = "";
   public sensorModel: string = "";
   public chart: Chart = null;
@@ -28,6 +28,12 @@ export class LineChartComponent implements OnInit {
     this.setData();
   }
 
+  ngOnChanges() {
+    if (typeof this.lineChartData !== typeof Array) {
+      this.startGraph();
+    }
+  }
+
   handlePauseClick() {
     this.paused = !this.paused;
 
@@ -36,22 +42,17 @@ export class LineChartComponent implements OnInit {
   }
 
   setData() {
-    this.sensorMAC = this.lineChartData[0].MAC_Address;
-    this.sensorModel = this.lineChartData[0].Model;
-
-    this.interval = setInterval(() => {
-      this.startGraph();
-    }, this.intervalDuration);
+    if (typeof this.lineChartData === typeof Array) {
+      this.interval = setInterval(() => {
+        this.startGraph();
+      }, this.intervalDuration);
+    }
   }
 
   startGraph() {
     let dateString: string = this.formatDate(new Date());
 
-    if (
-      this.lineChartData[this.startCounter].InternalTemp < 500 &&
-      this.lineChartData[this.startCounter].ExternalTemp1 < 500 &&
-      this.lineChartData[this.startCounter].ExternalTemp2 < 500
-    ) {
+    if (typeof this.lineChartData === typeof Array) {
       if (this.startCounter >= 10) {
         this.sensorReadDates.shift();
         this.internalTempSensor.shift();
@@ -68,10 +69,15 @@ export class LineChartComponent implements OnInit {
       this.sensor2Data.push(
         this.lineChartData[this.startCounter].ExternalTemp2
       );
-      this.sensorReadDates.push(dateString);
+
+      this.startCounter++;
+    } else {
+      this.internalTempSensor.push(this.lineChartData.InternalTemp);
+      this.sensor1Data.push(this.lineChartData.ExternalTemp1);
+      this.sensor2Data.push(this.lineChartData.ExternalTemp2);
     }
 
-    this.startCounter++;
+    this.sensorReadDates.push(dateString);
 
     this.updateChart(
       this.sensorReadDates,
@@ -80,7 +86,11 @@ export class LineChartComponent implements OnInit {
       this.sensor2Data
     );
 
-    if (this.startCounter > 4 && this.intervalDuration === 0) {
+    if (
+      this.startCounter > 4 &&
+      this.intervalDuration === 0 &&
+      typeof this.lineChartData === typeof Array
+    ) {
       clearInterval(this.interval);
       this.intervalDuration = 5000;
       this.setData();

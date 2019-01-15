@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +14,7 @@ namespace Thermo_Puck.Models
         public double ExternalTemp2 { get; set; }
         public double BatteryPercentage { get; set; }
         public double RangeSensorReading { get; set; }
+        public double ChargeRate { get; set; }
         public DateTime readDate;
 
         public SensorModel()

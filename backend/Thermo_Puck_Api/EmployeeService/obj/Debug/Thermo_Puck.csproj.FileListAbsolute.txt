@@ -352,7 +352,6 @@ C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api
 C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.csprojAssemblyReference.cache
 C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.csproj.CoreCompileInputs.cache
 C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.csproj.CopyComplete
 C:\Users\ThaddeusD\Desktop\projects\Training\Thermo-Puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.dll

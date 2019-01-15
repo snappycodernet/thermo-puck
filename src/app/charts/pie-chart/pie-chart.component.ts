@@ -1,15 +1,15 @@
 import { Chart } from "chart.js";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, OnChanges, Input } from "@angular/core";
 
 @Component({
   selector: "app-pie-chart",
   templateUrl: "./pie-chart.component.html",
   styleUrls: ["./pie-chart.component.css"],
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
   constructor() {}
 
-  @Input() pieChartData: any[];
+  @Input() pieChartData: any | any[];
   public interval: any;
   public intervalDuration: number = 5000;
   public range: number = 0;
@@ -21,24 +21,36 @@ export class PieChartComponent implements OnInit {
     this.setData();
   }
 
-  setData() {
-    this.interval = setInterval(() => {
+  ngOnChanges() {
+    if (typeof this.pieChartData !== typeof Array) {
       this.startGraph();
-    }, this.intervalDuration);
+    }
+  }
+
+  setData() {
+    if (typeof this.pieChartData === typeof Array) {
+      this.interval = setInterval(() => {
+        this.startGraph();
+      }, this.intervalDuration);
+    }
   }
 
   startGraph() {
-    this.range = Math.abs(
-      this.pieChartData[this.startCounter].RangeSensorReading
-    );
-    this.startCounter++;
+    if (typeof this.pieChartData === typeof Array) {
+      this.range = Math.abs(
+        this.pieChartData[this.startCounter].RangeSensorReading
+      );
+      this.startCounter++;
+    } else {
+      this.range = Math.abs(this.pieChartData.RangeSensorReading);
+    }
+
     this.updateChart();
   }
 
   updateChart() {
     const canvas: any = document.querySelector("#pie-chart");
     const ctx = canvas.getContext("2d");
-    console.log(ctx);
 
     if (!this.chart) {
       let centerTextPlugin = {
@@ -86,13 +98,25 @@ export class PieChartComponent implements OnInit {
       this.chart.update();
     } else {
       if (this.range <= 25) {
-        this.chart.data.datasets[0].backgroundColor = ["red", "#eee"];
+        this.chart.data.datasets[0].backgroundColor = [
+          "rgba(196, 65, 33, 0.67)",
+          "#eee",
+        ];
       } else if (this.range <= 50) {
-        this.chart.data.datasets[0].backgroundColor = ["gold", "#eee"];
+        this.chart.data.datasets[0].backgroundColor = [
+          "rgba(196, 190, 33, 0.67)",
+          "#eee",
+        ];
       } else if (this.range <= 75) {
-        this.chart.data.datasets[0].backgroundColor = ["#a6f224", "#eee"];
+        this.chart.data.datasets[0].backgroundColor = [
+          "rgba(143, 182, 37, 0.71)",
+          "#eee",
+        ];
       } else {
-        this.chart.data.datasets[0].backgroundColor = ["limegreen", "#eee"];
+        this.chart.data.datasets[0].backgroundColor = [
+          "rgba(33, 196, 65, 0.67)",
+          "#eee",
+        ];
       }
       this.chart.data.datasets[0].data = [this.range, 100 - this.range];
 

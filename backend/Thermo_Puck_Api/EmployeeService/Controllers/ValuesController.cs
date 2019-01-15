@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,7 +26,10 @@ namespace Thermo_Puck.Controllers
         // GET api/values/5
         public string Get(int id)
         {
-            return "value";
+            COMPortReader reader = new COMPortReader();
+            string output = new JavaScriptSerializer().Serialize(reader.ReadData());
+
+            return output;
         }
 
         // POST api/values
