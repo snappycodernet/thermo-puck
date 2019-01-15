@@ -32,11 +32,8 @@ export class LineChartComponent implements OnInit, OnChanges {
     if (this.lineChartData instanceof Array) {
       this.setData();
     } else {
-      console.log(this.lineChartData);
       this.startGraph();
     }
-
-    console.log(this.lineChartData);
   }
 
   handlePauseClick() {
@@ -115,13 +112,13 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(6,214,160,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 5,
-              pointBackgroundColor: "#000",
+              borderWidth: 2,
+              pointBackgroundColor: "rgba(6,214,160,0.7)",
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 8,
-              pointRadius: 3,
+              pointRadius: 5,
               pointHitRadius: 8,
               label: "Internal Temp Sensor",
               data: internalTempSensor,
@@ -133,13 +130,13 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(255,209,102,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 5,
-              pointBackgroundColor: "#000",
+              borderWidth: 2,
+              pointBackgroundColor: "rgba(255,209,102,0.7)",
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 8,
-              pointRadius: 3,
+              pointRadius: 5,
               pointHitRadius: 8,
               label: "Sensor 1",
               data: sensor1Data,
@@ -151,13 +148,13 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(15,78,133,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 5,
-              pointBackgroundColor: "#000",
+              borderWidth: 2,
+              pointBackgroundColor: "rgba(15,78,133,0.7)",
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
               pointHoverBorderColor: "#555",
               pointHoverRadius: 8,
-              pointRadius: 3,
+              pointRadius: 5,
               pointHitRadius: 8,
               label: "Sensor 2",
               data: sensor2Data,
@@ -187,6 +184,10 @@ export class LineChartComponent implements OnInit, OnChanges {
           },
           animation: {
             duration: 0,
+          },
+          tooltips: {
+            mode: "label",
+            intersect: false,
           },
           responsive: true,
           hover: {

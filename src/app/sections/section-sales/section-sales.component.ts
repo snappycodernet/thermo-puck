@@ -36,9 +36,7 @@ export class SectionSalesComponent implements OnInit {
         }, this.intervalDuration);
       },
       err => console.error(err),
-      () => {
-        console.log("Done Loading Chart Data");
-      }
+      () => {}
     );
   }
 
@@ -52,9 +50,7 @@ export class SectionSalesComponent implements OnInit {
         }, this.intervalDuration);
       },
       err => console.error(err),
-      () => {
-        console.log("Done Loading Chart Data");
-      }
+      () => {}
     );
   }
 }
