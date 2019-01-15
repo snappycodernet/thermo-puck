@@ -1,6 +1,17 @@
 .chart-body {
-  padding: 20px 0 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 202px;
 }
+
+.small-chart {
+  height: max-content;
+  width: max-content;
+}
+
+.large-bottom-container {}
 
 .source-selector {
   width: 400px;

@@ -2,58 +2,57 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="source-selector">
-        <button class="btn btn-success">Read From COM</button>
-        <button class="btn btn-primary">Read From Text</button>
+        <button class="btn btn-outline-info btn-lg" (click)="getCOMData()">Read From COM</button>
+        <button class="btn btn-outline-info btn-lg" (click)="getTextData()">Read From Text</button>
       </div>
     </div>
   </div>
 </div>
 
-<div ngIf="fetchingData" class="loading-div">
+<div *ngIf="fetchingData" class="loading-div">
   <h1 class="centered">LOADING CHARTS....</h1>
-  <div class="loader centered" *ngIf="!chart"></div>
+  <div class="loader centered"></div>
 </div>
 
-<div *ngIf="chartData" class="section-container">
+<div *ngIf="showCharts" class="section-container">
   <div class="row">
     <div class="col-sm-12">
       <div class="chart-header">
         <h5>SENSOR TEMPERATURE READINGS <span id="header-right-text">MAC: - MODEL:</span></h5>
       </div>
       <div class="chart-body">
-        <app-line-chart [lineChartData]="chartData">
+        <app-line-chart style="height:100%;width:100%;" [lineChartData]="chartData">
         </app-line-chart>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="chartData" class="section-container">
+<div *ngIf="showCharts" class="section-container">
   <div class="row">
-    <div class="col-lg-6 col-sm-12">
+    <div class="col-lg-8 col-sm-12">
       <div class="chart-header">
         <h5>SENSOR TEMP READING DISTRIBUTION</h5>
       </div>
       <div class="chart-body">
-        <app-bar-chart [barChartData]="chartData"></app-bar-chart>
+        <app-bar-chart style="height:100%;width:100%;" [barChartData]="chartData"></app-bar-chart>
       </div>
     </div>
-    <div class="col-lg-3 col-sm-12">
+    <div class="col-lg-4 col-sm-12 small-chart">
       <div class="chart-header">
         <h5>RANGE SENSOR</h5>
       </div>
       <div class="chart-body">
-        <app-pie-chart [pieChartData]="chartData"></app-pie-chart>
+        <app-pie-chart style="height:100%;width:100%;" [pieChartData]="chartData"></app-pie-chart>
       </div>
-    </div>
-    <div class="col-lg-3 col-sm-12">
-      <div class="chart-header">
-        <h5>BATTERY LIFE</h5>
-      </div>
-      <div class="chart-body">
-        <app-battery-level [batteryLevelData]="chartData"></app-battery-level>
-      </div>
-      <div class="chart-header">
-        <h5>CHARGE RATE</h5>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="chart-header">
+            <h5>BATTERY LIFE</h5>
+          </div>
+          <div class="chart-body">
+            <app-battery-level style="height:100%;width:100%;" [batteryLevelData]="chartData"></app-battery-level>
+          </div>
+        </div>
       </div>
     </div>
   </div>

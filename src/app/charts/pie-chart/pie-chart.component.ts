@@ -18,17 +18,19 @@ export class PieChartComponent implements OnInit, OnChanges {
   public pieChartLabels: string[] = ["Current"];
 
   ngOnInit() {
-    this.setData();
+    //this.setData();
   }
 
   ngOnChanges() {
-    if (typeof this.pieChartData !== typeof Array) {
+    if (this.pieChartData instanceof Array) {
+      this.setData();
+    } else {
       this.startGraph();
     }
   }
 
   setData() {
-    if (typeof this.pieChartData === typeof Array) {
+    if (this.pieChartData instanceof Array) {
       this.interval = setInterval(() => {
         this.startGraph();
       }, this.intervalDuration);
@@ -36,10 +38,8 @@ export class PieChartComponent implements OnInit, OnChanges {
   }
 
   startGraph() {
-    if (typeof this.pieChartData === typeof Array) {
-      this.range = Math.abs(
-        this.pieChartData[this.startCounter].RangeSensorReading
-      );
+    if (this.pieChartData instanceof Array) {
+      this.range = Math.abs(this.pieChartData[this.startCounter].RangeSensorReading);
       this.startCounter++;
     } else {
       this.range = Math.abs(this.pieChartData.RangeSensorReading);
@@ -63,7 +63,7 @@ export class PieChartComponent implements OnInit, OnChanges {
           ctx.font = fontSize + "px Arial";
           ctx.textBaseline = "middle";
           ctx.fillStyle = "#fff";
-          var text = this.range + "%",
+          var text = "-" + this.range,
             textX = Math.round((width - ctx.measureText(text).width) / 2),
             textY = height / 2;
           ctx.fillText(text, textX, textY);
@@ -97,27 +97,14 @@ export class PieChartComponent implements OnInit, OnChanges {
 
       this.chart.update();
     } else {
-      if (this.range <= 25) {
-        this.chart.data.datasets[0].backgroundColor = [
-          "rgba(196, 65, 33, 0.67)",
-          "#eee",
-        ];
-      } else if (this.range <= 50) {
-        this.chart.data.datasets[0].backgroundColor = [
-          "rgba(196, 190, 33, 0.67)",
-          "#eee",
-        ];
-      } else if (this.range <= 75) {
-        this.chart.data.datasets[0].backgroundColor = [
-          "rgba(143, 182, 37, 0.71)",
-          "#eee",
-        ];
-      } else {
-        this.chart.data.datasets[0].backgroundColor = [
-          "rgba(33, 196, 65, 0.67)",
-          "#eee",
-        ];
+      if (this.range <= 75) {
+        this.chart.data.datasets[0].backgroundColor = ["rgba(33, 196, 65, 0.67)", "#eee"];
+      } else if (this.range < 90) {
+        this.chart.data.datasets[0].backgroundColor = ["rgba(196, 190, 33, 0.67)", "#eee"];
+      } else if (this.range <= 100) {
+        this.chart.data.datasets[0].backgroundColor = ["rgba(143, 182, 37, 0.71)", "#eee"];
       }
+
       this.chart.data.datasets[0].data = [this.range, 100 - this.range];
 
       this.chart.update();

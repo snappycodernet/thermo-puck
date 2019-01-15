@@ -10,7 +10,8 @@ export class SectionSalesComponent implements OnInit {
   public chartData: any = null;
   public fetchingData: boolean = false;
   public interval: any;
-  public intervalDuration: number = 5000;
+  public intervalDuration: number = 1250;
+  public showCharts: boolean = false;
 
   constructor(private fetcherService: SensorDataFetcherService) {}
 
@@ -22,8 +23,6 @@ export class SectionSalesComponent implements OnInit {
     this.interval = setInterval(() => {
       this.initiateCOMFetch();
     }, this.intervalDuration);
-
-    this.fetchingData = false;
   }
 
   getTextData() {
@@ -31,7 +30,10 @@ export class SectionSalesComponent implements OnInit {
     this.fetcherService.getData().subscribe(
       data => {
         this.chartData = JSON.parse(data.toString());
-        this.fetchingData = false;
+        setTimeout(() => {
+          this.fetchingData = false;
+          this.showCharts = true;
+        }, this.intervalDuration);
       },
       err => console.error(err),
       () => {
@@ -44,6 +46,10 @@ export class SectionSalesComponent implements OnInit {
     this.fetcherService.getComPortData().subscribe(
       data => {
         this.chartData = JSON.parse(data.toString());
+        setTimeout(() => {
+          this.fetchingData = false;
+          this.showCharts = true;
+        }, this.intervalDuration);
       },
       err => console.error(err),
       () => {

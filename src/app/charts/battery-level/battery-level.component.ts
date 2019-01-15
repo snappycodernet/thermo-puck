@@ -16,17 +16,19 @@ export class BatteryLevelComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    this.setData();
+    //this.setData();
   }
 
   ngOnChanges() {
-    if (typeof this.batteryLevelData !== typeof Array) {
+    if (this.batteryLevelData instanceof Array) {
+      this.setData();
+    } else {
       this.startGraph();
     }
   }
 
   setData() {
-    if (typeof this.batteryLevelData === typeof Array) {
+    if (this.batteryLevelData instanceof Array) {
       this.interval = setInterval(() => {
         this.startGraph();
       }, this.intervalDuration);
@@ -34,10 +36,8 @@ export class BatteryLevelComponent implements OnInit, OnChanges {
   }
 
   startGraph() {
-    if (typeof this.batteryLevelData === typeof Array) {
-      this.batteryLevel = this.batteryLevelData[
-        this.startCounter
-      ].BatteryPercentage;
+    if (this.batteryLevelData instanceof Array) {
+      this.batteryLevel = this.batteryLevelData[this.startCounter].BatteryPercentage;
       this.startCounter++;
     } else {
       this.batteryLevel = this.batteryLevelData.BatteryPercentage;

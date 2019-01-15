@@ -25,13 +25,18 @@ export class LineChartComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    this.setData();
+    //this.setData();
   }
 
   ngOnChanges() {
-    if (typeof this.lineChartData !== typeof Array) {
+    if (this.lineChartData instanceof Array) {
+      this.setData();
+    } else {
+      console.log(this.lineChartData);
       this.startGraph();
     }
+
+    console.log(this.lineChartData);
   }
 
   handlePauseClick() {
@@ -42,7 +47,7 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   setData() {
-    if (typeof this.lineChartData === typeof Array) {
+    if (this.lineChartData instanceof Array) {
       this.interval = setInterval(() => {
         this.startGraph();
       }, this.intervalDuration);
@@ -52,32 +57,30 @@ export class LineChartComponent implements OnInit, OnChanges {
   startGraph() {
     let dateString: string = this.formatDate(new Date());
 
-    if (typeof this.lineChartData === typeof Array) {
-      if (this.startCounter >= 10) {
-        this.sensorReadDates.shift();
-        this.internalTempSensor.shift();
-        this.sensor1Data.shift();
-        this.sensor2Data.shift();
-      }
-
-      this.internalTempSensor.push(
-        this.lineChartData[this.startCounter].InternalTemp
-      );
-      this.sensor1Data.push(
-        this.lineChartData[this.startCounter].ExternalTemp1
-      );
-      this.sensor2Data.push(
-        this.lineChartData[this.startCounter].ExternalTemp2
-      );
-
-      this.startCounter++;
+    if (this.lineChartData instanceof Array) {
+      this.internalTempSensor.push(this.lineChartData[this.startCounter].InternalTemp);
+      this.sensor1Data.push(this.lineChartData[this.startCounter].ExternalTemp1);
+      this.sensor2Data.push(this.lineChartData[this.startCounter].ExternalTemp2);
+      this.sensorMAC = this.lineChartData[this.startCounter].MAC_Address;
+      this.sensorModel = this.lineChartData[this.startCounter].Model;
     } else {
       this.internalTempSensor.push(this.lineChartData.InternalTemp);
       this.sensor1Data.push(this.lineChartData.ExternalTemp1);
       this.sensor2Data.push(this.lineChartData.ExternalTemp2);
+      this.sensorMAC = this.lineChartData.MAC_Address;
+      this.sensorModel = this.lineChartData.Model;
+    }
+
+    if (this.startCounter >= 10) {
+      this.sensorReadDates.shift();
+      this.internalTempSensor.shift();
+      this.sensor1Data.shift();
+      this.sensor2Data.shift();
     }
 
     this.sensorReadDates.push(dateString);
+
+    this.startCounter++;
 
     this.updateChart(
       this.sensorReadDates,
@@ -89,7 +92,7 @@ export class LineChartComponent implements OnInit, OnChanges {
     if (
       this.startCounter > 4 &&
       this.intervalDuration === 0 &&
-      typeof this.lineChartData === typeof Array
+      this.lineChartData instanceof Array
     ) {
       clearInterval(this.interval);
       this.intervalDuration = 5000;
@@ -206,16 +209,14 @@ export class LineChartComponent implements OnInit, OnChanges {
             let element = this.chart.getElementAtEvent(e);
 
             if (element.length > 0) {
-              let fill = this.config.data.datasets[element[0]._datasetIndex]
-                .fill;
+              let fill = this.config.data.datasets[element[0]._datasetIndex].fill;
               this.config.data.datasets[element[0]._datasetIndex].fill = !fill;
               this.chart.update();
             }
           },
           title: {
-            text: `SENSOR MAC: ${this.sensorMAC} SENSOR MODEL: ${
-              this.sensorModel
-            }`,
+            text: `SENSOR MAC: ${this.sensorMAC} SENSOR MODEL: ${this.sensorModel}`,
+            display: true,
           },
           legend: {
             display: true,

@@ -7,6 +7,10 @@
   transition: background-color 1s ease;
 }
 
+.container {
+  width: 75%;
+}
+
 .battery-tip {
   margin: auto;
   background: transparent;

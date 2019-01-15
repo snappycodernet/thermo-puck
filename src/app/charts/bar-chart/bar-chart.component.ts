@@ -34,17 +34,19 @@ export class BarChartComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.barChartLabels = ["Internal Sensor", "Sensor 1", " Sensor 2"];
-    this.setData();
+    //this.setData();
   }
 
   ngOnChanges() {
-    if (typeof this.barChartData !== typeof Array) {
+    if (this.barChartData instanceof Array) {
+      this.setData();
+    } else {
       this.startGraph();
     }
   }
 
   setData() {
-    if (typeof this.barChartData === typeof Array) {
+    if (this.barChartData instanceof Array) {
       this.interval = setInterval(() => {
         this.startGraph();
       }, this.intervalDuration);
@@ -52,10 +54,8 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   startGraph() {
-    if (typeof this.barChartData === typeof Array) {
-      this.internalTempSensor.push(
-        this.barChartData[this.startCounter].InternalTemp
-      );
+    if (this.barChartData instanceof Array) {
+      this.internalTempSensor.push(this.barChartData[this.startCounter].InternalTemp);
       this.sensor1Data.push(this.barChartData[this.startCounter].ExternalTemp1);
       this.sensor2Data.push(this.barChartData[this.startCounter].ExternalTemp2);
       this.startCounter++;
@@ -99,11 +99,7 @@ export class BarChartComponent implements OnInit, OnChanges {
                 "rgba(255,209,102,0.2)",
                 "rgba(15,78,133,0.2)",
               ],
-              data: [
-                this.avgInternalTempSensor,
-                this.avgSensor1,
-                this.avgSensor2,
-              ],
+              data: [this.avgInternalTempSensor, this.avgSensor1, this.avgSensor2],
             },
           ],
         },
