@@ -1,1 +1,14 @@
+.line-chart-container {
+  height: 100%;
+  width: 100%;
+}
 
+#c3-chart {
+  min-height: 400px;
+  width: 100%;
+}
+
+.c3-text {
+  font-size: 15px;
+  fill: whitesmoke !important;
+}

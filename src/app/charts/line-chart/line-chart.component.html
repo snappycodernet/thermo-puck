@@ -1,6 +1,1 @@
-<div *ngIf="lineChartData">
-  <input type="button" class="resetZoomButton" value="RESET ZOOM" (click)="resetZoom()" *ngIf="zoomed">
-  <canvas id="line-chart"></canvas>
-  <img class="pausePlayButtons" *ngIf="paused" src="assets/play-rounded-button.png" (click)="handlePauseClick()">
-  <img class="pausePlayButtons" *ngIf="!paused" src="assets/round-pause-button.png" (click)="handlePauseClick()">
-</div>
+<div class="line-chart-container"><div id="c3-chart"></div></div>

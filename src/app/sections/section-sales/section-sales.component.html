@@ -17,12 +17,9 @@
 <div *ngIf="showCharts" class="section-container">
   <div class="row">
     <div class="col-sm-12">
-      <div class="chart-header">
-        <h5>SENSOR TEMPERATURE READINGS</h5>
-      </div>
+      <div class="chart-header"><h5>SENSOR TEMPERATURE READINGS</h5></div>
       <div class="chart-body">
-        <app-line-chart style="height:100%;width:100%;" [lineChartData]="chartData">
-        </app-line-chart>
+        <app-line-chart style="height:100%;width:100%;" [lineChartData]="chartData"> </app-line-chart>
       </div>
     </div>
   </div>
@@ -30,25 +27,19 @@
 <div *ngIf="showCharts" class="section-container">
   <div class="row">
     <div class="col-lg-8 col-sm-12">
-      <div class="chart-header">
-        <h5>SENSOR TEMP READING DISTRIBUTION</h5>
-      </div>
+      <div class="chart-header"><h5>SENSOR TEMP READING DISTRIBUTION</h5></div>
       <div class="chart-body">
         <app-bar-chart style="height:100%;width:100%;" [barChartData]="chartData"></app-bar-chart>
       </div>
     </div>
     <div class="col-lg-4 col-sm-12 small-chart">
-      <div class="chart-header">
-        <h5>RANGE SENSOR</h5>
-      </div>
+      <div class="chart-header"><h5>RANGE SENSOR</h5></div>
       <div class="chart-body">
         <app-pie-chart style="height:100%;width:100%;" [pieChartData]="chartData"></app-pie-chart>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <div class="chart-header">
-            <h5>BATTERY LIFE</h5>
-          </div>
+          <div class="chart-header"><h5>BATTERY LIFE</h5></div>
           <div class="chart-body">
             <app-battery-level style="height:100%;width:100%;" [batteryLevelData]="chartData"></app-battery-level>
           </div>
