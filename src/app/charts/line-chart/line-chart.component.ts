@@ -38,15 +38,26 @@ export class LineChartComponent implements OnInit, OnChanges {
     this.sensor2Data.push(this.lineChartData.ExternalTemp2);
     this.sensorReadDates.push(this.formatDate(new Date(time)));
 
-    this.startCounter++;
-
     this.startGraph();
   }
 
   startGraph() {
-    if (this.chart) this.chart.destroy();
+    if (this.chart) {
+      this.chart.flow({
+        columns: [
+          ["x", this.sensorReadDates[this.startCounter]],
+          ["Internal Temp", this.internalTempSensor[this.startCounter]],
+          ["Sensor 1", this.sensor1Data[this.startCounter]],
+          ["Sensor 2", this.sensor2Data[this.startCounter]],
+        ],
+        length: 0,
+        duration: 0,
+      });
+    } else {
+      this.createChart();
+    }
 
-    this.createChart();
+    this.startCounter++;
   }
 
   createChart() {
@@ -60,7 +71,10 @@ export class LineChartComponent implements OnInit, OnChanges {
         width,
       },
       data: {
+        x: "x",
+        xFormat: "%Y-%m-%d %H:%M:%S",
         columns: [
+          ["x", ...this.sensorReadDates],
           ["Internal Temp", ...this.internalTempSensor],
           ["Sensor 1", ...this.sensor1Data],
           ["Sensor 2", ...this.sensor2Data],
@@ -68,20 +82,16 @@ export class LineChartComponent implements OnInit, OnChanges {
         type: "line",
       },
       transition: {
-        duration: 0,
+        duration: 750,
       },
       subchart: {
         show: true,
-      },
-      zoom: {
-        enabled: true,
-        type: "drag",
-        rescale: true,
       },
       axis: {
         x: {
           extent: [0, 5],
           label: "Date/Time",
+          type: "timeseries",
         },
         y: {
           label: "Temperature",
@@ -89,8 +99,8 @@ export class LineChartComponent implements OnInit, OnChanges {
       },
       tooltip: {
         format: {
-          title: function(d) {
-            return d;
+          title: () => {
+            return this.sensorReadDates[this.startCounter];
           },
         },
       },
@@ -99,9 +109,13 @@ export class LineChartComponent implements OnInit, OnChanges {
 
   formatDate(date: Date) {
     const day = date.getDate();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const year = date.getUTCFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const milliseconds = date.getMilliseconds();
 
-    return `${date.toLocaleTimeString()}`;
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
 }
