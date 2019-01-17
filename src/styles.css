@@ -1,14 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/c3/c3.min.css";
+
 * {
   box-sizing: border-box;
 }
+
+/* C3 CHART STYLING */
+
+.c3-axis-y text {
+  fill: whitesmoke;
+  font-size: 12px;
+}
+.c3-axis-x text {
+  font-size: 12px;
+  fill: whitesmoke;
+}
+
+/* ---- END C3 CHART STYLING */
 
 html {
   height: 100%;
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   background-color: #1c2228;
   color: #f7fff7;
   height: 100%;
@@ -28,7 +43,7 @@ a:hover {
 }
 
 .chart-body {
-  background-color: #191F26;
+  background-color: #191f26;
   border: none;
   border-radius: 2px;
   box-shadow: 0 8px 12px rgba(2, 1, 1, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);

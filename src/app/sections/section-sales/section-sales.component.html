@@ -14,13 +14,11 @@
   <div class="loader centered"></div>
 </div>
 
-<div *ngIf="showCharts" class="section-container">
-  <div class="row">
+<div *ngIf="showCharts" class="section-container" style="height: 800px">
+  <div class="row" style="height:100%;width:100%;">
     <div class="col-sm-12">
       <div class="chart-header"><h5>SENSOR TEMPERATURE READINGS</h5></div>
-      <div class="chart-body">
-        <app-line-chart style="height:100%;width:100%;" [lineChartData]="chartData"> </app-line-chart>
-      </div>
+      <div class="chart-body"><app-line-chart [lineChartData]="chartData"> </app-line-chart></div>
     </div>
   </div>
 </div>

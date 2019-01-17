@@ -58,8 +58,15 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   createChart() {
+    let width = document.querySelector(".line-chart-container").getBoundingClientRect().width;
+    let height = document.querySelector(".line-chart-container").getBoundingClientRect().height;
+
     this.chart = c3.generate({
       bindto: "#c3-chart",
+      size: {
+        height,
+        width,
+      },
       data: {
         columns: [
           ["Internal Temp", ...this.internalTempSensor],
@@ -70,6 +77,11 @@ export class LineChartComponent implements OnInit, OnChanges {
       },
       subchart: {
         show: true,
+      },
+      zoom: {
+        enabled: true,
+        type: "drag",
+        rescale: true,
       },
       axis: {
         x: {
