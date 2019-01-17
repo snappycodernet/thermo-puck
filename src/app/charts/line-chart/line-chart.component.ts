@@ -44,17 +44,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   }
 
   startGraph() {
-    if (this.chart) {
-      this.chart.load({
-        columns: [
-          ["Internal Temp", ...this.internalTempSensor],
-          ["Sensor 1", ...this.sensor1Data],
-          ["Sensor 2", ...this.sensor2Data],
-        ],
-      });
-    } else {
-      this.createChart();
-    }
+    if (this.chart) this.chart.destroy();
+
+    this.createChart();
   }
 
   createChart() {
@@ -68,12 +60,23 @@ export class LineChartComponent implements OnInit, OnChanges {
         ],
         type: "line",
       },
+      transition: {
+        duration: 0,
+      },
       subchart: {
         show: true,
       },
+      grid: {
+        x: {
+          show: true,
+        },
+        y: {
+          show: true,
+        },
+      },
       axis: {
         x: {
-          extent: [0],
+          extent: [0, 5],
           label: "Date/Time",
         },
         y: {
