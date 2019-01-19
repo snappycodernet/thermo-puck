@@ -9,23 +9,25 @@ namespace Thermo_Puck.Models.Helpers
 {
   public class COMPortReader
   {
-    private SerialPort COMPort = new SerialPort("COM3", 115200);
+    private SerialPort COMPort = new SerialPort("/dev/tty.SLAB_USBtoUART", 115200);
     public string DataPacket { get; set; } = "";
+    public string[] ports = SerialPort.GetPortNames();
+    public string works = "no";
 
     public SensorModel ReadData()
     {
       try
       {
-        if(!COMPort.IsOpen)
-        {
-          COMPort.Open();
-
-          DataPacket = COMPort.ReadLine();
+        if (COMPort.IsOpen) {
+          COMPort.Close();
         }
+
+        COMPort.Open();
+        DataPacket = COMPort.ReadLine();
       }
       catch(InvalidOperationException) { return null; }
       catch(UnauthorizedAccessException) { throw new Exception("UnauthorizedAccess"); }
-      catch(IOException) { return null; }
+      catch(IOException ex) { throw new Exception(ex.Message); }
       finally
       {
         COMPort.Close();
