@@ -16,6 +16,9 @@ export class SensorDataFetcherService {
   }
 
   getComPortData() {
+    if (window.navigator.platform.indexOf("Mac") > -1) {
+      return this.http.get("http://localhost:8080/api/values/1");
+    }
     return this.http.get("http://localhost:59564/api/values/1");
   }
 }

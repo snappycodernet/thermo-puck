@@ -474,3 +474,4 @@ C:/Users/ThaddeusD/Desktop/projects/Training/Thermo-Puck/backend/Thermo_Puck_Api
 /Users/thadd/Desktop/thermo-puck/backend/Thermo_Puck_Api/EmployeeService/obj/Debug/Thermo_Puck.csproj.CopyComplete
 /Users/thadd/Desktop/thermo-puck/backend/Thermo_Puck_Api/EmployeeService/obj/Debug/Thermo_Puck.dll
 /Users/thadd/Desktop/thermo-puck/backend/Thermo_Puck_Api/EmployeeService/obj/Debug/Thermo_Puck.pdb
+/Users/thadd/Desktop/thermo-puck/backend/Thermo_Puck_Api/EmployeeService/obj/Debug/Thermo_Puck.csprojAssemblyReference.cache
