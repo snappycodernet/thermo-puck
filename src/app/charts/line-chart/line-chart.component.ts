@@ -79,18 +79,9 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     this.startCounter++;
 
-    this.updateChart(
-      this.sensorReadDates,
-      this.internalTempSensor,
-      this.sensor1Data,
-      this.sensor2Data
-    );
+    this.updateChart(this.sensorReadDates, this.internalTempSensor, this.sensor1Data, this.sensor2Data);
 
-    if (
-      this.startCounter > 4 &&
-      this.intervalDuration === 0 &&
-      this.lineChartData instanceof Array
-    ) {
+    if (this.startCounter > 4 && this.intervalDuration === 0 && this.lineChartData instanceof Array) {
       clearInterval(this.interval);
       this.intervalDuration = 5000;
       this.setData();
