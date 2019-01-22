@@ -6,21 +6,27 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Thermo_Puck.Models;
+using Thermo_Puck.Models.Helpers;
 
 namespace Thermo_Puck.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class SensorModelsController : ApiController
     {
         private Thermo_PuckContext db = new Thermo_PuckContext();
 
         // GET: api/SensorModels
-        public IQueryable<SensorModel> GetSensorModels()
+        public string Get()
         {
-            return db.SensorModels;
+            string output = new JavaScriptSerializer().Serialize(COMPortReader.ReadData());
+
+            return output;
         }
 
         // GET: api/SensorModels/5

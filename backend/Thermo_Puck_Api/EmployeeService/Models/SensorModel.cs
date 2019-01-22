@@ -11,9 +11,9 @@ namespace Thermo_Puck.Models
         public int Id { get; set; }
         [Required]
         public string Model { get; set; }
-    [Required]
-    public string MAC_Address { get; set; }
-    [Required]
+        [Required]
+        public string MAC_Address { get; set; }
+        [Required]
         public double InternalTemp { get; set; }
         [Required]
         public double ExternalTemp1 { get; set; }
@@ -26,11 +26,6 @@ namespace Thermo_Puck.Models
         [Required]
         public double ChargeRate { get; set; }
         [Required]
-        public DateTime readDate;
-
-        public SensorModel()
-        {
-            readDate = DateTime.Now;
-        }
+        public DateTime ReadDate { get; set; }
     }
 }
