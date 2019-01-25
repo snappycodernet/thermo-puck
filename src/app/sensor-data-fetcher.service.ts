@@ -11,11 +11,7 @@ export class SensorDataFetcherService {
   constructor(private http: HttpClient) {}
 
   // Uses http.get() to load data from a single API endpoint
-  getData() {
-    return this.http.get("http://localhost:59564/api/values");
-  }
-
-  getComPortData() {
-    return this.http.get("http://localhost:59564/api/values/1");
+  getComPortData(port: number) {
+    return this.http.get(`http://localhost:59564/api/values/${port}`);
   }
 }

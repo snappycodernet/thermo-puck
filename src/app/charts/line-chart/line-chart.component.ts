@@ -9,7 +9,7 @@ import * as ChartZoomPlugin from "chartjs-plugin-zoom";
 })
 export class LineChartComponent implements OnInit, OnChanges {
   @Input() lineChartData: any | any[];
-  public sensorMAC: string = "";
+  public sensorSerial: string = "";
   public sensorModel: string = "";
   public chart: Chart = null;
   public paused: boolean = false;
@@ -58,13 +58,13 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.internalTempSensor.push(this.lineChartData[this.startCounter].InternalTemp);
       this.sensor1Data.push(this.lineChartData[this.startCounter].ExternalTemp1);
       this.sensor2Data.push(this.lineChartData[this.startCounter].ExternalTemp2);
-      this.sensorMAC = this.lineChartData[this.startCounter].MAC_Address;
+      this.sensorSerial = this.lineChartData[this.startCounter].Serial;
       this.sensorModel = this.lineChartData[this.startCounter].Model;
     } else {
       this.internalTempSensor.push(this.lineChartData.InternalTemp);
       this.sensor1Data.push(this.lineChartData.ExternalTemp1);
       this.sensor2Data.push(this.lineChartData.ExternalTemp2);
-      this.sensorMAC = this.lineChartData.MAC_Address;
+      this.sensorSerial = this.lineChartData.Serial;
       this.sensorModel = this.lineChartData.Model;
     }
 
@@ -216,7 +216,7 @@ export class LineChartComponent implements OnInit, OnChanges {
             }
           },
           title: {
-            text: `SENSOR MAC: ${this.sensorMAC} SENSOR MODEL: ${this.sensorModel}`,
+            text: `SENSOR SERIAL: ${this.sensorSerial} SENSOR MODEL: ${this.sensorModel}`,
             display: true,
           },
           legend: {

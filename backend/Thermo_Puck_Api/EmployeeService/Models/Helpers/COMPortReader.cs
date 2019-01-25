@@ -3,28 +3,42 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace Thermo_Puck.Models.Helpers
 {
   public class COMPortReader
   {
-    private SerialPort COMPort = new SerialPort("COM3", 115200);
     public string DataPacket { get; set; } = "";
+    
 
-    public SensorModel ReadData()
+    public SensorModel ReadData(int port)
     {
+      SerialPort COMPort = new SerialPort("COM" + port, 115200);
+      COMPort.DataBits = 8;
+      COMPort.Handshake = Handshake.None;
+      COMPort.Parity = Parity.None;
+      COMPort.StopBits = StopBits.One;
+
+      if(port == 3)
+      {
+        COMPort.DtrEnable = false;
+      }
+
+      COMPort.DtrEnable = true;
+
       try
       {
         if(!COMPort.IsOpen)
         {
           COMPort.Open();
-
-          DataPacket = COMPort.ReadLine();
         }
+
+        DataPacket = COMPort.ReadLine();
       }
       catch(InvalidOperationException) { return null; }
-      catch(UnauthorizedAccessException) { throw new Exception("UnauthorizedAccess"); }
+      catch(UnauthorizedAccessException ex) { throw new Exception("UnauthorizedAccess: " + ex.Message); }
       catch(IOException) { return null; }
       finally
       {
@@ -38,35 +52,42 @@ namespace Thermo_Puck.Models.Helpers
     {
       SensorModel model = new SensorModel();
 
-      if (dataPacket.Length > 0 && dataPacket.Contains(",") && dataPacket.Contains(":") && !dataPacket.Contains(",,"))
+      if (dataPacket.Length > 0 && dataPacket.Contains(",") && dataPacket.Contains("AE") && !dataPacket.Contains(",,"))
       {
         string[] splitData = dataPacket.Split(',');
 
-        if (splitData.Length < 10)
+        if (splitData.Length < 9)
         {
           double internalTemp = 0.00;
           double externalTemp1 = 0.00;
           double externalTemp2 = 0.00;
           double battery = 0.00;
           double range = 0.00;
-          double chargeRate = 0.00;
 
           double.TryParse(splitData[2], out internalTemp);
           double.TryParse(splitData[3], out externalTemp1);
           double.TryParse(splitData[4], out externalTemp2);
           double.TryParse(splitData[5], out battery);
           double.TryParse(splitData[splitData.Length - 1], out range);
-          double.TryParse(splitData[6], out chargeRate);
 
-          model.MAC_Address = splitData[0];
-          model.Model = splitData[1];
+          model.Model = splitData[0];
+          model.Serial = splitData[1];
           model.InternalTemp = internalTemp;
           model.ExternalTemp1 = externalTemp1;
           model.ExternalTemp2 = externalTemp2;
-          model.BatteryPercentage = battery;
+          model.BatteryPercentage = ((battery - 3) / (4.23 - 3)) * 100 >= 100 ? 100 : ((battery - 3) / (4.23 - 3)) * 100;
           model.RangeSensorReading = range;
-          model.ChargeRate = chargeRate;
         }
+      }
+      else
+      {
+        model.Model = "";
+        model.Serial = "AEXXX";
+        model.InternalTemp = 0;
+        model.ExternalTemp1 = 0;
+        model.ExternalTemp2 = 0;
+        model.BatteryPercentage = 0;
+        model.RangeSensorReading = 0;
       }
 
       return model;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,24 +18,25 @@ namespace Thermo_Puck.Controllers
         // GET api/values
         public string Get()
         {
-            TextFileReader reader = new TextFileReader();
-            string output = new JavaScriptSerializer().Serialize(reader.RetrieveCurrentData());
-
-            return output;
+          return string.Empty;
         }
 
         // GET api/values/5
         public string Get(int id)
-        {
-            COMPortReader reader = new COMPortReader();
-            string output = new JavaScriptSerializer().Serialize(reader.ReadData());
 
-            return output;
+    {
+          
+          COMPortReader reader = new COMPortReader();
+
+          string output = new JavaScriptSerializer().Serialize(reader.ReadData(id));
+
+          return output;
         }
 
         // POST api/values
         public void Post([FromBody]string value)
         {
+            
         }
 
         // PUT api/values/5

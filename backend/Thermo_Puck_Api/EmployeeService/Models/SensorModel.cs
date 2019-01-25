@@ -7,14 +7,13 @@ namespace Thermo_Puck.Models
 {
     public class SensorModel
     {
-        public string MAC_Address { get; set; }
         public string Model { get; set; }
+        public string Serial { get; set; }
         public double InternalTemp { get; set; }
         public double ExternalTemp1 { get; set; }
         public double ExternalTemp2 { get; set; }
         public double BatteryPercentage { get; set; }
         public double RangeSensorReading { get; set; }
-        public double ChargeRate { get; set; }
         public DateTime readDate;
 
         public SensorModel()

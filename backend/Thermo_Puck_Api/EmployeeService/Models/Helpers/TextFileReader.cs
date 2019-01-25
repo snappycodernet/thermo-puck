@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -54,15 +54,15 @@ namespace Thermo_Puck.Models.Helpers
                         double.TryParse(splitData[5], out battery);
                         double.TryParse(splitData[splitData.Length - 1], out range);
 
-                        model.MAC_Address = splitData[0];
-                        model.Model = splitData[1];
+                        model.Model = splitData[0];
+                        model.Serial = splitData[1];
                         model.InternalTemp = internalTemp;
                         model.ExternalTemp1 = externalTemp1;
                         model.ExternalTemp2 = externalTemp2;
-                        model.BatteryPercentage = battery;
+                        model.BatteryPercentage = ((battery - 3) / (4.15 - 3)) * 100;
                         model.RangeSensorReading = range;
 
-                        sensorModels.Add(model);
+            sensorModels.Add(model);
                     }
                 }
             }

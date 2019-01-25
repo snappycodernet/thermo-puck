@@ -4,6 +4,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule, Router } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { ChartsModule } from "ng2-charts";
+import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -31,6 +32,7 @@ import { BatteryLevelComponent } from "./charts/battery-level/battery-level.comp
     RouterModule.forRoot(appRoutes),
     ChartsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [SensorDataFetcherService],
   bootstrap: [AppComponent],

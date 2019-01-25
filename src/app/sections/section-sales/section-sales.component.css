@@ -13,13 +13,27 @@
 
 .source-selector {
   width: 400px;
-  height: 75px;
   border: 1px solid black;
   border-radius: 10px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1;
+  flex-direction: column;
+}
+
+.inner-source {
+  display: flex;
+  flex-direction: row;
+  flex: 2;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.port {
+  width: 40%;
 }
 
 button {
