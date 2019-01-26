@@ -68,7 +68,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.sensorModel = this.lineChartData.Model;
     }
 
-    if (this.startCounter >= 10) {
+    if (this.startCounter >= 99) {
       this.sensorReadDates.shift();
       this.internalTempSensor.shift();
       this.sensor1Data.shift();
@@ -112,7 +112,7 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(6,214,160,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 2,
+              borderWidth: 3,
               pointBackgroundColor: "rgba(6,214,160,0.7)",
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
@@ -130,7 +130,7 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(255,209,102,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 2,
+              borderWidth: 3,
               pointBackgroundColor: "rgba(255,209,102,0.7)",
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
@@ -148,7 +148,7 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(15,78,133,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 2,
+              borderWidth: 3,
               pointBackgroundColor: "rgba(15,78,133,0.7)",
               pointBorderColor: "#000",
               pointHoverBackgroundColor: "#555",
@@ -169,15 +169,15 @@ export class LineChartComponent implements OnInit, OnChanges {
               {
                 ticks: {
                   min: 50,
-                  max: 100,
+                  max: 125,
                 },
               },
             ],
             xAxes: [
               {
                 ticks: {
-                  max: 10,
-                  suggestedMax: 10,
+                  max: 100,
+                  suggestedMax: 100,
                 },
               },
             ],

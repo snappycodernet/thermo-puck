@@ -493,3 +493,4 @@ C:\Users\ThaddeusD\Desktop\thermo-puck\backend\Thermo_Puck_Api\EmployeeService\o
 C:\Users\ThaddeusD\Desktop\thermo-puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.csproj.CopyComplete
 C:\Users\ThaddeusD\Desktop\thermo-puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.dll
 C:\Users\ThaddeusD\Desktop\thermo-puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.pdb
+C:\Users\ThaddeusD\Desktop\thermo-puck\backend\Thermo_Puck_Api\EmployeeService\obj\Debug\Thermo_Puck.csprojAssemblyReference.cache
