@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   background-color: #1c2228;
   color: #f7fff7;
   height: 100%;
@@ -28,7 +28,7 @@ a:hover {
 }
 
 .chart-body {
-  background-color: #191F26;
+  background-color: #191f26;
   border: none;
   border-radius: 2px;
   box-shadow: 0 8px 12px rgba(2, 1, 1, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);
@@ -45,25 +45,6 @@ a:hover {
   padding: 12px;
   box-shadow: 0 8px 12px rgba(2, 1, 1, 0.2), 0 5px 6px rgba(0, 0, 0, 0.3);
   background-color: rgba(2, 1, 1, 0.2);
-}
-
-.resetZoomButton {
-  background-color: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  border-radius: 30px;
-  position: absolute;
-  top: 7px;
-  left: 40%;
-  height: 10%;
-  width: 11%;
-  cursor: pointer;
-}
-
-.resetZoomButton:hover {
-  background-color: #fff;
-  border: 1px solid black;
-  color: black;
 }
 
 .centered {

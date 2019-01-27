@@ -23,9 +23,7 @@ namespace Thermo_Puck.Controllers
 
         // GET api/values/5
         public string Get(int id)
-
-    {
-          
+        {
           COMPortReader reader = new COMPortReader();
 
           string output = new JavaScriptSerializer().Serialize(reader.ReadData(id));

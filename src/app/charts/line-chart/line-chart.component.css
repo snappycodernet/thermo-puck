@@ -1,1 +1,5 @@
-
+.resetZoomBtn {
+  top: 10px;
+  position: absolute;
+  right: 25px;
+}

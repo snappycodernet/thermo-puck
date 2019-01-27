@@ -11,22 +11,21 @@ namespace Thermo_Puck.Models.Helpers
   public class COMPortReader
   {
     public string DataPacket { get; set; } = "";
-    
+    private SerialPort COMPort = new SerialPort();
+    private int port = 0;
+    private bool EnableDTR = true;
 
     public SensorModel ReadData(int port)
     {
-      SerialPort COMPort = new SerialPort("COM" + port, 115200);
+      this.port = port;
+      COMPort.PortName = "COM" + this.port;
+      COMPort.BaudRate = 115200;
       COMPort.DataBits = 8;
       COMPort.Handshake = Handshake.None;
       COMPort.Parity = Parity.None;
       COMPort.StopBits = StopBits.One;
-
-      if(port == 3)
-      {
-        COMPort.DtrEnable = false;
-      }
-
-      COMPort.DtrEnable = true;
+      COMPort.ReadTimeout = 5000;
+      COMPort.DtrEnable = EnableDTR;
 
       try
       {
@@ -37,7 +36,8 @@ namespace Thermo_Puck.Models.Helpers
 
         DataPacket = COMPort.ReadLine();
       }
-      catch(InvalidOperationException) { return null; }
+      catch (TimeoutException) { EnableDTR = true; return ReadData(port); }
+      catch (InvalidOperationException) { return null; }
       catch(UnauthorizedAccessException ex) { throw new Exception("UnauthorizedAccess: " + ex.Message); }
       catch(IOException) { return null; }
       finally
@@ -70,12 +70,22 @@ namespace Thermo_Puck.Models.Helpers
           double.TryParse(splitData[5], out battery);
           double.TryParse(splitData[splitData.Length - 1], out range);
 
+          if(battery > 0)
+          {
+            battery = Math.Floor(((battery - 3) / (4.23 - 3)) * 100);
+          }
+
+          if(battery > 100)
+          {
+            battery = 100;
+          }
+
           model.Model = splitData[0];
           model.Serial = splitData[1];
           model.InternalTemp = internalTemp;
           model.ExternalTemp1 = externalTemp1;
           model.ExternalTemp2 = externalTemp2;
-          model.BatteryPercentage = ((battery - 3) / (4.23 - 3)) * 100 >= 100 ? 100 : ((battery - 3) / (4.23 - 3)) * 100;
+          model.BatteryPercentage = battery;
           model.RangeSensorReading = range;
         }
       }

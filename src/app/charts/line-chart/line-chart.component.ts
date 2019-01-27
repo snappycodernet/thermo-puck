@@ -79,18 +79,9 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     this.startCounter++;
 
-    this.updateChart(
-      this.sensorReadDates,
-      this.internalTempSensor,
-      this.sensor1Data,
-      this.sensor2Data
-    );
+    this.updateChart(this.sensorReadDates, this.internalTempSensor, this.sensor1Data, this.sensor2Data);
 
-    if (
-      this.startCounter > 4 &&
-      this.intervalDuration === 0 &&
-      this.lineChartData instanceof Array
-    ) {
+    if (this.startCounter > 4 && this.intervalDuration === 0 && this.lineChartData instanceof Array) {
       clearInterval(this.interval);
       this.intervalDuration = 5000;
       this.setData();
@@ -112,14 +103,14 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(6,214,160,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 3,
+              borderWidth: 5,
               pointBackgroundColor: "rgba(6,214,160,0.7)",
-              pointBorderColor: "#000",
-              pointHoverBackgroundColor: "#555",
-              pointHoverBorderColor: "#555",
-              pointHoverRadius: 8,
-              pointRadius: 5,
-              pointHitRadius: 8,
+              //pointBorderColor: "#000",
+              //pointHoverBackgroundColor: "#555",
+              //pointHoverBorderColor: "#555",
+              //pointHoverRadius: 5,
+              pointRadius: 0,
+              //pointHitRadius: 5,
               label: "Internal Temp Sensor",
               data: internalTempSensor,
               fill: false,
@@ -130,14 +121,14 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(255,209,102,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 3,
+              borderWidth: 5,
               pointBackgroundColor: "rgba(255,209,102,0.7)",
-              pointBorderColor: "#000",
-              pointHoverBackgroundColor: "#555",
-              pointHoverBorderColor: "#555",
-              pointHoverRadius: 8,
-              pointRadius: 5,
-              pointHitRadius: 8,
+              //pointBorderColor: "#000",
+              //pointHoverBackgroundColor: "#555",
+              //pointHoverBorderColor: "#555",
+              //pointHoverRadius: 5,
+              pointRadius: 0,
+              //pointHitRadius: 5,
               label: "Sensor 1",
               data: sensor1Data,
               fill: false,
@@ -148,14 +139,14 @@ export class LineChartComponent implements OnInit, OnChanges {
               borderColor: "rgba(15,78,133,0.2)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
-              borderWidth: 3,
+              borderWidth: 5,
               pointBackgroundColor: "rgba(15,78,133,0.7)",
-              pointBorderColor: "#000",
-              pointHoverBackgroundColor: "#555",
-              pointHoverBorderColor: "#555",
-              pointHoverRadius: 8,
-              pointRadius: 5,
-              pointHitRadius: 8,
+              //pointBorderColor: "#000",
+              //pointHoverBackgroundColor: "#555",
+              //pointHoverBorderColor: "#555",
+              //pointHoverRadius: 5,
+              pointRadius: 0,
+              //pointHitRadius: 5,
               label: "Sensor 2",
               data: sensor2Data,
               fill: false,
@@ -248,7 +239,7 @@ export class LineChartComponent implements OnInit, OnChanges {
             drag: false,
             // Zooming directions. Remove the appropriate direction to disable
             // Eg. 'y' would only allow zooming in the y direction
-            mode: "y",
+            mode: "xy",
             // Function called once zooming is completed
             // Useful for dynamic data loading
             onZoom: () => {
