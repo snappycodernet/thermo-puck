@@ -25,6 +25,8 @@ export class LineChartComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
+    Chart.defaults.global.defaultFontColor = 'black';
+    Chart.defaults.global.defaultFontSize = 16;
     //this.setData();
   }
 
@@ -99,55 +101,55 @@ export class LineChartComponent implements OnInit, OnChanges {
           labels: sensorReadDates,
           datasets: [
             {
-              backgroundColor: "rgba(6,214,160,0.2)",
-              borderColor: "rgba(6,214,160,0.2)",
+              backgroundColor: "rgba(0, 153, 0, 1)",
+              borderColor: "rgba(0, 153, 0, 0.90)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
               borderWidth: 5,
-              pointBackgroundColor: "rgba(6,214,160,0.7)",
+              pointBackgroundColor: "rgba(0, 153, 0, 0.90)",
               //pointBorderColor: "#000",
               //pointHoverBackgroundColor: "#555",
               //pointHoverBorderColor: "#555",
               //pointHoverRadius: 5,
               pointRadius: 0,
               //pointHitRadius: 5,
-              label: "Internal Temp Sensor",
+              label: "Internal\t",
               data: internalTempSensor,
               fill: false,
               lineTension: 0.0,
             },
             {
-              backgroundColor: "rgba(255,209,102,0.2)",
-              borderColor: "rgba(255,209,102,0.2)",
+              backgroundColor: "rgba(204, 34, 0, 1)",
+              borderColor: "rgba(204, 34, 0, 0.90)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
               borderWidth: 5,
-              pointBackgroundColor: "rgba(255,209,102,0.7)",
+              pointBackgroundColor: "rgba(204, 34, 0, 0.90)",
               //pointBorderColor: "#000",
               //pointHoverBackgroundColor: "#555",
               //pointHoverBorderColor: "#555",
               //pointHoverRadius: 5,
               pointRadius: 0,
               //pointHitRadius: 5,
-              label: "Sensor 1",
+              label: "Top\t",
               data: sensor1Data,
               fill: false,
               lineTension: 0.0,
             },
             {
-              backgroundColor: "rgba(15,78,133,0.2)",
-              borderColor: "rgba(15,78,133,0.2)",
+              backgroundColor: "rgba(0, 77, 230, 0.90)",
+              borderColor: "rgba(0, 77, 230, 0.90)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
               borderWidth: 5,
-              pointBackgroundColor: "rgba(15,78,133,0.7)",
+              pointBackgroundColor: "rgba(0, 77, 230, 0.90)",
               //pointBorderColor: "#000",
               //pointHoverBackgroundColor: "#555",
               //pointHoverBorderColor: "#555",
               //pointHoverRadius: 5,
               pointRadius: 0,
               //pointHitRadius: 5,
-              label: "Sensor 2",
+              label: "Bottom",
               data: sensor2Data,
               fill: false,
               lineTension: 0.0,
@@ -161,6 +163,13 @@ export class LineChartComponent implements OnInit, OnChanges {
                 ticks: {
                   min: 50,
                   max: 125,
+                  fontStyle: 'bold',
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Temperature °F',
+                  fontSize: 20,
+                  fontStyle: 'bold',
                 },
               },
             ],
@@ -169,6 +178,7 @@ export class LineChartComponent implements OnInit, OnChanges {
                 ticks: {
                   max: 100,
                   suggestedMax: 100,
+                  fontSize: 12,
                 },
               },
             ],
@@ -207,11 +217,16 @@ export class LineChartComponent implements OnInit, OnChanges {
             }
           },
           title: {
-            text: `SENSOR SERIAL: ${this.sensorSerial} SENSOR MODEL: ${this.sensorModel}`,
+            text: `Ascentec Engineering Sensor Model: ${this.sensorModel.toUpperCase()}    s/n: ${this.sensorSerial}`,
+            fontSize: 24,
             display: true,
           },
           legend: {
             display: true,
+            labels: {
+              boxWidth: 75,
+              fontStyle: 'bold',
+            },
             onClick: function(e, legendItem) {
               let index = legendItem.datasetIndex;
               let ci = this.chart;
