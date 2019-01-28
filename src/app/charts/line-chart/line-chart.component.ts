@@ -271,6 +271,7 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.chart.data.datasets[0].data = internalTempSensor;
       this.chart.data.datasets[1].data = sensor1Data;
       this.chart.data.datasets[2].data = sensor2Data;
+      this.chart.options.title.text = `Ascentec Engineering Sensor Model: ${this.sensorModel.toUpperCase()}    s/n: ${this.sensorSerial}`;
 
       this.chart.update();
     }
