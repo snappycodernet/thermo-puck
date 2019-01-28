@@ -13,31 +13,32 @@ namespace Thermo_Puck.Models.Helpers
     public string DataPacket { get; set; } = "";
     private SerialPort COMPort = new SerialPort();
     private int port = 0;
-    private bool EnableDTR = true;
+    public static bool EnableDTR = false;
 
     public SensorModel ReadData(int port)
     {
       this.port = port;
-      COMPort.PortName = "COM" + this.port;
-      COMPort.BaudRate = 115200;
-      COMPort.DataBits = 8;
-      COMPort.Handshake = Handshake.None;
-      COMPort.Parity = Parity.None;
-      COMPort.StopBits = StopBits.One;
-      COMPort.ReadTimeout = 5000;
-      COMPort.DtrEnable = EnableDTR;
 
       try
       {
         if(!COMPort.IsOpen)
         {
+          COMPort.PortName = "COM" + this.port;
+          COMPort.BaudRate = 115200;
+          COMPort.DataBits = 8;
+          COMPort.Handshake = Handshake.None;
+          COMPort.Parity = Parity.None;
+          COMPort.StopBits = StopBits.One;
+          COMPort.ReadTimeout = 5000;
+          COMPort.DtrEnable = EnableDTR;
+
           COMPort.Open();
         }
 
         DataPacket = COMPort.ReadLine();
       }
-      catch (TimeoutException) { EnableDTR = true; return ReadData(port); }
-      catch (InvalidOperationException) { return null; }
+      catch (TimeoutException) { COMPort.Close(); Thread.Sleep(500); EnableDTR = !EnableDTR; return ReadData(port); }
+      catch (InvalidOperationException iex) { string readthis = iex.Message; return null; }
       catch(UnauthorizedAccessException ex) { throw new Exception("UnauthorizedAccess: " + ex.Message); }
       catch(IOException) { return null; }
       finally
