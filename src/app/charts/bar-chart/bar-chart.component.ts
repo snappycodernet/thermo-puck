@@ -33,7 +33,10 @@ export class BarChartComponent implements OnInit, OnChanges {
   public avgSensor2: number = 0;
 
   ngOnInit() {
-    this.barChartLabels = ["Internal Sensor", "Sensor 1", " Sensor 2"];
+    this.barChartLabels = ["Internal", "Top", "Bottom"];
+    Chart.defaults.global.defaultFontColor = "#d4d6d8";
+    Chart.defaults.global.defaultFontSize = 16;
+    Chart.defaults.global.defaultFontFamily = "Helvetica";
     //this.setData();
   }
 
@@ -95,9 +98,9 @@ export class BarChartComponent implements OnInit, OnChanges {
             {
               label: `${new Date().toString()}`,
               backgroundColor: [
-                "rgba(6,214,160,0.2)",
-                "rgba(255,209,102,0.2)",
-                "rgba(15,78,133,0.2)",
+                "rgba(23, 239, 124, 0.75)",
+                "rgba(255, 186, 25, 0.75)",
+                "rgba(27, 191, 232, 0.75)",
               ],
               data: [this.avgInternalTempSensor, this.avgSensor1, this.avgSensor2],
             },
@@ -112,6 +115,10 @@ export class BarChartComponent implements OnInit, OnChanges {
           title: {
             display: true,
             text: "Average Sensor Temperatures",
+          },
+          gridLines: {
+            display: true,
+            color: "#636363",
           },
         },
       });

@@ -25,8 +25,9 @@ export class LineChartComponent implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    Chart.defaults.global.defaultFontColor = 'black';
+    Chart.defaults.global.defaultFontColor = "#d4d6d8";
     Chart.defaults.global.defaultFontSize = 16;
+    Chart.defaults.global.defaultFontFamily = "Helvetica";
     //this.setData();
   }
 
@@ -81,9 +82,18 @@ export class LineChartComponent implements OnInit, OnChanges {
 
     this.startCounter++;
 
-    this.updateChart(this.sensorReadDates, this.internalTempSensor, this.sensor1Data, this.sensor2Data);
+    this.updateChart(
+      this.sensorReadDates,
+      this.internalTempSensor,
+      this.sensor1Data,
+      this.sensor2Data
+    );
 
-    if (this.startCounter > 4 && this.intervalDuration === 0 && this.lineChartData instanceof Array) {
+    if (
+      this.startCounter > 4 &&
+      this.intervalDuration === 0 &&
+      this.lineChartData instanceof Array
+    ) {
       clearInterval(this.interval);
       this.intervalDuration = 5000;
       this.setData();
@@ -101,12 +111,12 @@ export class LineChartComponent implements OnInit, OnChanges {
           labels: sensorReadDates,
           datasets: [
             {
-              backgroundColor: "rgba(0, 153, 0, 1)",
-              borderColor: "rgba(0, 153, 0, 0.90)",
+              backgroundColor: "rgb(23, 239, 124)",
+              borderColor: "rgb(23, 239, 124)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
               borderWidth: 5,
-              pointBackgroundColor: "rgba(0, 153, 0, 0.90)",
+              pointBackgroundColor: "rgb(23, 239, 124)",
               //pointBorderColor: "#000",
               //pointHoverBackgroundColor: "#555",
               //pointHoverBorderColor: "#555",
@@ -119,12 +129,12 @@ export class LineChartComponent implements OnInit, OnChanges {
               lineTension: 0.0,
             },
             {
-              backgroundColor: "rgba(204, 34, 0, 1)",
-              borderColor: "rgba(204, 34, 0, 0.90)",
+              backgroundColor: "rgb(255, 186, 25)",
+              borderColor: "rgb(255, 186, 25)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
               borderWidth: 5,
-              pointBackgroundColor: "rgba(204, 34, 0, 0.90)",
+              pointBackgroundColor: "rgb(255, 186, 25)",
               //pointBorderColor: "#000",
               //pointHoverBackgroundColor: "#555",
               //pointHoverBorderColor: "#555",
@@ -137,12 +147,12 @@ export class LineChartComponent implements OnInit, OnChanges {
               lineTension: 0.0,
             },
             {
-              backgroundColor: "rgba(0, 77, 230, 0.90)",
-              borderColor: "rgba(0, 77, 230, 0.90)",
+              backgroundColor: "rgb(27, 191, 232)",
+              borderColor: "rgb(27, 191, 232)",
               hoverBackgroundColor: "#fff",
               hoverBorderColor: "#fff",
               borderWidth: 5,
-              pointBackgroundColor: "rgba(0, 77, 230, 0.90)",
+              pointBackgroundColor: "rgb(27, 191, 232)",
               //pointBorderColor: "#000",
               //pointHoverBackgroundColor: "#555",
               //pointHoverBorderColor: "#555",
@@ -161,15 +171,19 @@ export class LineChartComponent implements OnInit, OnChanges {
             yAxes: [
               {
                 ticks: {
-                  min: 50,
-                  max: 125,
-                  fontStyle: 'bold',
+                  min: 40,
+                  max: 120,
+                  fontStyle: "bold",
                 },
                 scaleLabel: {
                   display: true,
-                  labelString: 'Temperature °F',
+                  labelString: "Temperature °F",
                   fontSize: 20,
-                  fontStyle: 'bold',
+                  fontStyle: "bold",
+                },
+                gridLines: {
+                  display: true,
+                  color: "#636363",
                 },
               },
             ],
@@ -179,6 +193,10 @@ export class LineChartComponent implements OnInit, OnChanges {
                   max: 100,
                   suggestedMax: 100,
                   fontSize: 12,
+                },
+                gridLines: {
+                  display: true,
+                  color: "#636363",
                 },
               },
             ],
@@ -217,7 +235,9 @@ export class LineChartComponent implements OnInit, OnChanges {
             }
           },
           title: {
-            text: `Ascentec Engineering Sensor Model: ${this.sensorModel.toUpperCase()}    s/n: ${this.sensorSerial}`,
+            text: `Ascentec Engineering Sensor Model: ${this.sensorModel.toUpperCase()}    s/n: ${
+              this.sensorSerial
+            }`,
             fontSize: 24,
             display: true,
           },
@@ -225,7 +245,7 @@ export class LineChartComponent implements OnInit, OnChanges {
             display: true,
             labels: {
               boxWidth: 75,
-              fontStyle: 'bold',
+              fontStyle: "bold",
             },
             onClick: function(e, legendItem) {
               let index = legendItem.datasetIndex;
@@ -271,7 +291,9 @@ export class LineChartComponent implements OnInit, OnChanges {
       this.chart.data.datasets[0].data = internalTempSensor;
       this.chart.data.datasets[1].data = sensor1Data;
       this.chart.data.datasets[2].data = sensor2Data;
-      this.chart.options.title.text = `Ascentec Engineering Sensor Model: ${this.sensorModel.toUpperCase()}    s/n: ${this.sensorSerial}`;
+      this.chart.options.title.text = `Ascentec Engineering Sensor Model: ${this.sensorModel.toUpperCase()}    s/n: ${
+        this.sensorSerial
+      }`;
 
       this.chart.update();
     }
